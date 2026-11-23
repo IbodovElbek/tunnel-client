@@ -18,10 +18,10 @@ jobs:
           mkdir release
           for item in "darwin arm64" "darwin amd64" "linux amd64" "linux arm64"; do
             set -- $item
-            GOOS=$1 GOARCH=$2 go build -trimpath -ldflags "-s -w -X github.com/IbodovElbek/tunnel-client/internal/build.Version=$VERSION" -o tunnel ./cmd/tunnel
+            GOAMD64=v1 GOOS=$1 GOARCH=$2 go build -trimpath -ldflags "-s -w -X github.com/IbodovElbek/tunnel-client/internal/build.Version=$VERSION" -o tunnel ./cmd/tunnel
             tar -czf release/tunnel_${VERSION#v}_$1_$2.tar.gz tunnel
           done
-          GOOS=windows GOARCH=amd64 go build -trimpath -ldflags "-s -w -X github.com/IbodovElbek/tunnel-client/internal/build.Version=$VERSION" -o tunnel.exe ./cmd/tunnel
+          GOAMD64=v1 GOOS=windows GOARCH=amd64 go build -trimpath -ldflags "-s -w -X github.com/IbodovElbek/tunnel-client/internal/build.Version=$VERSION" -o tunnel.exe ./cmd/tunnel
           zip -j release/tunnel_${VERSION#v}_windows_amd64.zip tunnel.exe
           (cd release && sha256sum * > checksums.txt)
       - uses: softprops/action-gh-release@v2
