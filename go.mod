@@ -1,6 +1,6 @@
 module github.com/IbodovElbek/tunnel-client
 
-go 1.24.0
+go 1.22.0
 
 require (
 	github.com/hashicorp/yamux v0.1.2
